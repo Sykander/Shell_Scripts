@@ -1,5 +1,4 @@
 # Rockar Aliases
-
 alias php56='/usr/local/Cellar/php@5.6/5.6.36_1/bin/php';
 alias php71='/usr/local/Cellar/php@7.1/7.1.19/bin/php';
 alias composer71='php71 /usr/local/bin/composer';
