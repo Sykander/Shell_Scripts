@@ -1,0 +1,2 @@
+./rockar.sh
+./git.sh
