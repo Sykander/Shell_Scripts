@@ -14,6 +14,7 @@ alias composer='composer71'; # Use php@7.1 by default for composer
 
 # source scripts
 source $DIR/rockar.sh
+source $DIR/sparta.sh
 source $DIR/git.sh
 
 # Please use the following link to generate ascii banners

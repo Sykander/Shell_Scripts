@@ -14,6 +14,10 @@ alias gd="git diff";
 # @param distance to commit being compared to
 # @param distance to commit being compared from (default is the HEAD)
 glb() {
+    if [ -z "$2" ]; then
+        2=0;
+    fi
+
     if [ -z "$1" ]; then
       git diff;
     else
