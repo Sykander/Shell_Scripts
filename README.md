@@ -3,7 +3,7 @@
 Run the following command to install this package
 
 ```
-cd ~; git clone https://github.com/Sykander/Shell_Scripts.git .shell_scripts; echo "\n ==================== \n\n\n Append the following line to your Bash Profile \n source ~/.shell_scripts/main.sh; cd -;"
+if [[ -d ~/.shell_scripts ]];then printf '\n\n\n It looks like a version of shell_scripts is already installed.\n  Would you like to update to the latest version? [y,n]';read update;if [[ $update = 'y' ]];then cd ~/.shell_scripts;g checkout master;g pull;if [[ -z $sh ]];then printf "\n ==================== \n\n\n Append the following line to your Bash Profile \n source ~/.shell_scripts/main.sh;";else printf "\n ==================== \n\n\n Update complete";fi;cd -;fi;else git clone https://github.com/Sykander/Shell_Scripts.git ~/.shell_scripts;printf "\n ==================== \n\n\n Append the following line to your Bash Profile \n source ~/.shell_scripts/main.sh;";fi
 ```
 
 # Use
@@ -29,7 +29,7 @@ glb( distanceOne, distanceTwo )
 # @param distance to commit being compared from (default is the HEAD ie. 0)
 
 gpatch( patchName )
-# makes a patch file of all changes since the current head located at $sh/patches/
+# makes a patch file of all changes (including untracked files) since the current head located at $sh/patches/
 # @param name for patch file, the current date time will be used if none is provided
 ```
 

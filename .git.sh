@@ -25,7 +25,7 @@ glb() {
     fi
 }
 
-# makes a patch file of all changes since the current head located at $sh/patches/
+# makes a patch file of all changes (including untracked files) since the current head located at $sh/patches/
 # @param name for patch file, the current date time will be used if none is provided
 gpatch() {
     git add -A;
