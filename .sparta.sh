@@ -10,6 +10,7 @@ bamboo() {
     open https://sparta.bamboohr.co.uk/
 }
 
+# Opens office
 office() {
     open https://www.office.com/
 }

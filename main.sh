@@ -1,4 +1,4 @@
-DIR="$( cd "$( dirname "$0" )" && pwd )"
+sh="$( cd "$( dirname "$0" )" && pwd )"
 
 # configuration
 GLOBAL_NGINX_HTML='/usr/local/var/www'; # directory where nginx websites are located
@@ -13,9 +13,9 @@ alias php='php71'; # Use php@7.1 by default
 alias composer='composer71'; # Use php@7.1 by default for composer
 
 # source scripts
-source $DIR/rockar.sh
-source $DIR/sparta.sh
-source $DIR/git.sh
+source $sh/.rockar.sh
+source $sh/.sparta.sh
+source $sh/.git.sh
 
 # Please use the following link to generate ascii banners
 # http://patorjk.com/software/taag/#p=display&c=echo&f=Ogre&t=Packages%20%0AInstalled

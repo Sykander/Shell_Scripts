@@ -1,3 +1,4 @@
+# installs node packages for the current project
 nodeP() {
     cd web/skin/frontend/rockar; npm i &&
     echo "   ___           _                          " &&
@@ -15,6 +16,7 @@ nodeP() {
     cd -;
 }
 
+# runs a finance regeneration for the current project
 finaR() {
     cd web/shell/rockar; php financing_calculation.php -- regenerate &&
     echo "   ___ _                                                 " &&
@@ -32,6 +34,7 @@ finaR() {
     cd -;
 }
 
+# deletes the cache for the current project
 deleC() {
     rm -rf web/var/cache && mkdir web/var/cache &&
     echo "   ___           _              ___ _                         _ " &&
@@ -42,6 +45,7 @@ deleC() {
     echo "                                                                ";
 }
 
+# gulp compiles the current project
 gulpC() {
     cd web/skin/frontend/rockar; gulp compile --dev --hard-lint &&
     echo "   ___                      _ _          _ " &&
@@ -54,6 +58,8 @@ gulpC() {
     cd -;
 }
 
+# Opens the directory of the given website
+# @param website name
 webdir() {
     local site;
 
@@ -75,11 +81,14 @@ webdir() {
     cd ${GLOBAL_NGINX_HTML}/${site};
 }
 
+# opens the nginx web conf
 webconf() {
     cd "${GLOBAL_NGINX_CONF}";
 }
 
 # Opens a local version of a website
+# @param the website store
+# @param the website
 website() {
     local store;
     local site;
@@ -145,7 +154,7 @@ bitbucket() {
 
 # Opens packages.newbald1.com
 # @param package to search for
-packages() {
+package() {
   if [ -z "$1" ]; then
     open "http://packages.newbald1.com/";
   else
@@ -176,6 +185,8 @@ testFile() {
     echo 'function printPre($thing) {echo "<pre>"; print_r($thing); echo "</pre>";}' >> web/test.php;
 }
 
+# Refresh or re init a project
+# @param action to perform either refresh or init
 project() {
     if [ -z "$1" ]; then
         1="refresh"

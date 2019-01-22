@@ -24,3 +24,20 @@ glb() {
       git diff HEAD~$1 HEAD~$2;
     fi
 }
+
+# makes a patch file of all changes since the current head located at $sh/patches/
+# @param name for patch file, the current date time will be used if none is provided
+gpatch() {
+    git add -A;
+
+    if [ ! -d ${sh}/patches ]; then
+        mkdir ${sh}/patches
+    fi
+
+    if [ -z "$1" ]; then
+        1=`date '+%Y-%m-%d-%H-%M-%S'`
+    fi
+
+    git diff --cached > ${sh}/patches/${1}.patch
+    git reset
+}
