@@ -30,7 +30,8 @@ finaR() {
     echo " / \/// _ \/ _\` |/ _ \ '_ \ / _ \ '__/ _\` | __/ _ \/ _\` |" &&
     echo "/ _  \  __/ (_| |  __/ | | |  __/ | | (_| | ||  __/ (_| |" &&
     echo "\/ \_/\___|\__, |\___|_| |_|\___|_|  \__,_|\__\___|\__,_|" &&
-    echo "           |___/                                         ";
+    echo "           |___/                                         " &&
+    echo "                                                         ";
     cd -;
 }
 
@@ -123,7 +124,7 @@ jira() {
   if [ -z "$1" ]; then
     open "https://rockar.atlassian.net/secure/Dashboard.jspa#";
   else
-    open "https://rockar.atlassian.net/browse/$1";
+    open "https://rockar.atlassian.net/browse/${1}";
   fi
 }
 
@@ -183,6 +184,19 @@ testFile() {
     touch web/test.php;
     echo '<?php require_once "app/Mage.php"; Mage::app(); echo "<h4>Test File</h4>";' >> web/test.php;
     echo 'function printPre($thing) {echo "<pre>"; print_r($thing); echo "</pre>";}' >> web/test.php;
+
+      echo " _____          _       ___ _ _      " &&
+      echo "/__   \___  ___| |_    / __(_) | ___ " &&
+      echo "  / /\/ _ \/ __| __|  / _\ | | |/ _ \\" &&
+      echo " / / |  __/\__ \ |_  / /   | | |  __/" &&
+      echo " \/   \___||___/\__| \/    |_|_|\___|" &&
+      echo "                                     " &&
+      echo "   ___               _           _   " &&
+      echo "  / __\ __ ___  __ _| |_ ___  __| |  " &&
+      echo " / / | '__/ _ \/ _\` | __/ _ \/ _\` |  " &&
+      echo "/ /__| | |  __/ (_| | ||  __/ (_| |  " &&
+      echo "\____/_|  \___|\__,_|\__\___|\__,_|  " &&
+      echo "                                     ";
 }
 
 # Refresh or re init a project
@@ -192,13 +206,61 @@ project() {
         1="refresh"
     fi
 
-    if [ $1 = 'refresh'] || [ $1 = 'r']; then
+    echo "   ___           _           _   " &&
+    echo "  / _ \_ __ ___ (_) ___  ___| |_ " &&
+    echo " / /_)/ '__/ _ \| |/ _ \/ __| __|" &&
+    echo "/ ___/| | | (_) | |  __/ (__| |_ " &&
+    echo "\/    |_|  \___// |\___|\___|\__|" &&
+    echo "              |__/               ";
+
+    if [ $1 = 'refresh' ] || [ $1 = 'r' ]; then
+        echo "   __       __               _     " &&
+        echo "  /__\ ___ / _|_ __ ___  ___| |__  " &&
+        echo " / \/// _ \ |_| '__/ _ \/ __| '_ \ " &&
+        echo "/ _  \  __/  _| | |  __/\__ \ | | |" &&
+        echo "\/ \_/\___|_| |_|  \___||___/_| |_|" &&
+        echo "                                   ";
+
         composer update --prefer-source;
         composer run-script post-install-cmd -vvv -- --redeploy;
         gulpC;
+        deleC;
     fi
 
-    if [ $1 = 'init'] || [ $1 = 'i']; then
+    if [ $1 = 'hard-refresh' ] || [ $1 = 'hr' ]; then
+        echo "                     _         __       __               _     " &&
+        echo "  /\  /\__ _ _ __ __| |       /__\ ___ / _|_ __ ___  ___| |__  " &&
+        echo " / /_/ / _\` | '__/ _\` |_____ / \/// _ \ |_| '__/ _ \/ __| '_ \ " &&
+        echo "/ __  / (_| | | | (_| |_____/ _  \  __/  _| | |  __/\__ \ | | |" &&
+        echo "\/ /_/ \__,_|_|  \__,_|     \/ \_/\___|_| |_|  \___||___/_| |_|" &&
+        echo "                                                               ";
+
+        if [ ! -d ${sh}/mage_files ]; then
+            mkdir ${sh}/mage_files
+        fi
+
+        local localXml=`date '+%Y-%m-%d-%H-%M-%S'`
+        cp web/app/etc/local.xml $sh/mage_files/${localXml}.xml
+        rm -rf vendor
+        rm -rf web
+        git reset --hard
+        git clean -fd
+        cp $sh/mage_files/${localXml}.xml web/app/etc/local.xml
+        composer update --prefer-source;
+        composer run-script post-install-cmd -vvv -- --redeploy;
+        finaR;
+        nodeP;
+        gulpC;
+    fi
+
+    if [ $1 = 'init' ] || [ $1 = 'i' ]; then
+        echo " _       _ _   " &&
+        echo "(_)_ __ (_) |_ " &&
+        echo "| | '_ \| | __|" &&
+        echo "| | | | | | |_ " &&
+        echo "|_|_| |_|_|\__|" &&
+        echo "               ";
+
         composer update --prefer-source;
         composer run-script post-install-cmd -vvv -- --redeploy;
         nodeP;
