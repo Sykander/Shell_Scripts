@@ -3,8 +3,8 @@ if [[ -d ~/.shell_scripts ]]; then
     read update
     if [[ $update = 'y' ]]; then
         cd ~/.shell_scripts
-        g checkout master
-        g pull
+        git checkout master
+        git pull
         if [[ -z $sh ]]; then
             printf "\n ==================== \n\n\n Append the following line to your Bash Profile \n source ~/.shell_scripts/main.sh;";
         else
