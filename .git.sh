@@ -4,9 +4,11 @@ alias ga="git add";
 alias gaa="git add -A";
 alias gc="git commit";
 alias gp="git pull";
-alias gs="git add -A; git stash"; # Ensures untracked files are also stashed
+alias gstash="git add -A; git stash"; # Ensures untracked files are also stashed
 alias gm="git merge";
 alias gd="git diff";
+alias gs="git status";
+alias gl="git log";
 
 # Functions
 

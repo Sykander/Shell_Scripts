@@ -12,14 +12,16 @@ if [[ -d ~/.shell_scripts ]];then printf '\n\n\n It looks like a version of shel
 
 ### Aliases
 ```
-g     ~ git
-ga    ~ git add
-gaa   ~ git add -A
-gc    ~ git commit
-gp    ~ git pull
-gs    ~ git stash (Ensures untracked files are also stashed)
-gm    ~ git merge
-gd    ~ git diff
+g       ~ git
+ga      ~ git add
+gaa     ~ git add -A
+gc      ~ git commit
+gp      ~ git pull
+gstash  ~ git stash (Ensures untracked files are also stashed)
+gm      ~ git merge
+gd      ~ git diff
+gs      ~ git status
+gl      ~ git log
 ```
 ### Functions
 ```
@@ -90,7 +92,7 @@ testFile
 
 project
 # Refresh or re init a project
-# @param action to perform either refresh or init
+# @param action to perform either (eg. 'refresh', 'init', 'hard-refresh')
 ```
 
 ## Sparta

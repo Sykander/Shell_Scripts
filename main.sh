@@ -1,3 +1,12 @@
+git remote update;
+if [[ -d ~/.shell_scripts ]]; then
+    if ! git status -uno | grep -q 'up to date'
+    then
+        ~/.shell_scripts/setup.sh;
+    fi
+    clear
+fi
+
 sh="$( cd "$( dirname "$0" )" && pwd )"
 
 # configuration
@@ -19,3 +28,6 @@ source $sh/.git.sh
 
 # Please use the following link to generate ascii banners
 # http://patorjk.com/software/taag/#p=display&c=echo&f=Ogre&t=Packages%20%0AInstalled
+
+# Please use the following link to minify bash scripts
+# http://bash-minifier.appspot.com

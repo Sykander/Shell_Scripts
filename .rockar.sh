@@ -172,6 +172,9 @@ checkDeployment() {
 
 # Watch the system log
 watchSystemLog() {
+    if [ ! -f web/var/log/system.log ]; then
+        touch web/var/log/system.log
+    fi
     tail -f web/var/log/system.log;
 }
 
@@ -185,22 +188,22 @@ testFile() {
     echo '<?php require_once "app/Mage.php"; Mage::app(); echo "<h4>Test File</h4>";' >> web/test.php;
     echo 'function printPre($thing) {echo "<pre>"; print_r($thing); echo "</pre>";}' >> web/test.php;
 
-      echo " _____          _       ___ _ _      " &&
-      echo "/__   \___  ___| |_    / __(_) | ___ " &&
-      echo "  / /\/ _ \/ __| __|  / _\ | | |/ _ \\" &&
-      echo " / / |  __/\__ \ |_  / /   | | |  __/" &&
-      echo " \/   \___||___/\__| \/    |_|_|\___|" &&
-      echo "                                     " &&
-      echo "   ___               _           _   " &&
-      echo "  / __\ __ ___  __ _| |_ ___  __| |  " &&
-      echo " / / | '__/ _ \/ _\` | __/ _ \/ _\` |  " &&
-      echo "/ /__| | |  __/ (_| | ||  __/ (_| |  " &&
-      echo "\____/_|  \___|\__,_|\__\___|\__,_|  " &&
-      echo "                                     ";
+    echo " _____          _       ___ _ _      " &&
+    echo "/__   \___  ___| |_    / __(_) | ___ " &&
+    echo "  / /\/ _ \/ __| __|  / _\ | | |/ _ \\" &&
+    echo " / / |  __/\__ \ |_  / /   | | |  __/" &&
+    echo " \/   \___||___/\__| \/    |_|_|\___|" &&
+    echo "                                     " &&
+    echo "   ___               _           _   " &&
+    echo "  / __\ __ ___  __ _| |_ ___  __| |  " &&
+    echo " / / | '__/ _ \/ _\` | __/ _ \/ _\` |  " &&
+    echo "/ /__| | |  __/ (_| | ||  __/ (_| |  " &&
+    echo "\____/_|  \___|\__,_|\__\___|\__,_|  " &&
+    echo "                                     ";
 }
 
 # Refresh or re init a project
-# @param action to perform either refresh or init
+# @param action to perform either (eg. 'refresh', 'init', 'hard-refresh')
 project() {
     if [ -z "$1" ]; then
         1="refresh"
