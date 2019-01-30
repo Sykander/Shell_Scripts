@@ -3,10 +3,8 @@
 Run the following command to install this package
 
 ```
-if [[ -d ~/.shell_scripts ]];then printf '\n\n\n It looks like a version of shell_scripts is already installed.\n  Would you like to update to the latest version? [y,n]';read update;if [[ $update = 'y' ]];then cd ~/.shell_scripts;git checkout master;git pull;if [[ -z $sh ]];then printf "\n ==================== \n\n\n Append the following line to your Bash Profile \n source ~/.shell_scripts/main.sh;";else printf "\n ==================== \n\n\n Update complete";fi;cd -;fi;else git clone https://github.com/Sykander/Shell_Scripts.git ~/.shell_scripts;printf "\n ==================== \n\n\n Append the following line to your Bash Profile \n source ~/.shell_scripts/main.sh;";fi
+setup(){ if [[ -d ~/.shell_scripts ]];then cd ~/.shell_scripts;git remote update;if ! git status -uno|grep -q 'up to date';then update;fi;cd -;else install;fi;};update(){ message "It looks like a version of shell_scripts is already installed.\n  Would you like to update to the latest version?" "[y, n]";read update;if [[ $update = 'y' ]]||[[ $update = 'yes' ]]||[[ $update = 'Y' ]];then cd ~/.shell_scripts;git checkout master;git pull;if [[ -z $sh ]];then message "Append the following line to your Bash Profile \n source ~/.shell_scripts/main.sh;";else message "Update Complete.";fi;cd -;fi;};install(){ git clone https://github.com/Sykander/Shell_Scripts.git ~/.shell_scripts;message "Append the following line to your Bash Profile \n source ~/.shell_scripts/main.sh;";};message(){ if [[ -z "$1" ]];then printf "\n ==================== \n\n\n";fi;if [[ -z "$2" ]];then printf "\n ==================== \n\n\n ${1}";fi;if [[ -z "$3" ]];then printf "\n ==================== \n\n\n ${1} ${2}:";fi;};setup
 ```
-
-# Use
 
 ## Git
 
@@ -18,6 +16,8 @@ gaa     ~ git add -A
 gc      ~ git commit
 gp      ~ git pull
 gstash  ~ git stash (Ensures untracked files are also stashed)
+gr      ~ git reset
+gch     ~ git checkout
 gm      ~ git merge
 gd      ~ git diff
 gs      ~ git status
@@ -106,3 +106,13 @@ bamboo
 office
 # Opens office
 ```
+
+# Contributing
+
+If you'd like to contribute to the project by adding some new commands or by adjusting how the project is setup then feel free to make a feature branch and send a Pull Request.
+
+# Resources
+
+### [ASCII banner generator](http://patorjk.com/software/taag/#p=display&c=echo&f=Ogre&t=Packages%20%0AInstalled)
+
+### [Shell Script minifier](http://bash-minifier.appspot.com)

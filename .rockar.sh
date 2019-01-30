@@ -167,7 +167,7 @@ package() {
 # @param package name
 checkDeployment() {
     bitbucket $1;
-    packages $1;
+    package $1;
 }
 
 # Watch the system log
