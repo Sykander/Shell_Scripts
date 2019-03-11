@@ -124,7 +124,7 @@ jira() {
   if [ -z "$1" ]; then
     open "https://rockar.atlassian.net/secure/Dashboard.jspa#";
   else
-    open "https://rockar.atlassian.net/browse/${1}";
+    open "https://rockar.atlassian.net/browse/${1}?oldIssueView=true";
   fi
 }
 
@@ -185,8 +185,9 @@ testFile() {
         rm $file;
     fi
     touch web/test.php;
-    echo '<?php require_once "app/Mage.php"; Mage::app(); echo "<h4>Test File</h4>";' >> web/test.php;
+    echo '<?php require_once "app/Mage.php"; Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID); echo "<h4>Test File</h4>";' >> web/test.php;
     echo 'function printPre($thing) {echo "<pre>"; print_r($thing); echo "</pre>";}' >> web/test.php;
+    echo "function findAndReplaceTagStyles(\$string, \$tag, \$replacement) {return preg_replace(\"/<\${tag}( ?(((?!style)\\w)+=\\\"[^\\\"\\\'\\=\\>]*?\\\" ?)*)*(style=\\\"([^\\\"\\\'\\=\\>]*?)\\\")?( ?(((?!style)\\w)+=\\\"[^\\\"\\\'\\=\\>]*?\\\" ?)*)>/\",\"<\${tag} style=\\\"\${replacement}\$5\\\"\$1\$6>\",\$string);}" >> web/test.php;
 
     echo " _____          _       ___ _ _      " &&
     echo "/__   \___  ___| |_    / __(_) | ___ " &&
