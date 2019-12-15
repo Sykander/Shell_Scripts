@@ -3,14 +3,15 @@ alias g="git";
 alias ga="git add";
 alias gaa="git add -A";
 alias gc="git commit";
-alias gp="git pull";
-alias gstash="git add -A; git stash"; # Ensures untracked files are also stashed
-alias gr="git reset";
 alias gch="git checkout";
-alias gm="git merge";
 alias gd="git diff";
-alias gs="git status";
+alias gdc="git diff --cached";
+alias gm="git merge";
 alias gl="git log";
+alias gp="git pull";
+alias gr="git reset";
+alias gs="git status";
+alias gstash="git add -A; git stash"; # Ensures untracked files are also stashed
 
 # Functions
 
@@ -44,4 +45,11 @@ gpatch() {
 
     git diff --cached > ${sh}/patches/${1}.patch
     git reset
+}
+
+# Rename a file regardless of case sensitivity
+# @param target
+# @param destination
+grename() {
+    git mv $1 ${sh}/temp_file && git mv ${sh}/temp_file $2;
 }

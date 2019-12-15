@@ -48,7 +48,28 @@ deleC() {
 
 # gulp compiles the current project
 gulpC() {
-    cd web/skin/frontend/rockar; gulp compile --dev --hard-lint &&
+    local env;
+  
+    if [ -z "$1" ]; then
+        env='--dev';
+    else
+        env="$1";
+    fi
+  
+    cd web/skin/frontend/rockar; gulp compile $env --hard-lint &&
+    echo "   ___                      _ _          _ " &&
+    echo "  / __\___  _ __ ___  _ __ (_) | ___  __| |" &&
+    echo " / /  / _ \| '_ \` _ \| '_ \| | |/ _ \/ _\` |" &&
+    echo "/ /__| (_) | | | | | | |_) | | |  __/ (_| |" &&
+    echo "\____/\___/|_| |_| |_| .__/|_|_|\___|\__,_|" &&
+    echo "                     |_|                   " &&
+    echo "                                           ";
+    cd -;
+}
+
+# Gulps the current vue setup
+gulpV() {
+    cd web/skin/frontend/rockar; gulp vue-compile --dev &&
     echo "   ___                      _ _          _ " &&
     echo "  / __\___  _ __ ___  _ __ (_) | ___  __| |" &&
     echo " / /  / _ \| '_ \` _ \| '_ \| | |/ _ \/ _\` |" &&
@@ -79,7 +100,42 @@ webdir() {
             site='rockar';
         fi
     fi
+
     cd ${GLOBAL_NGINX_HTML}/${site};
+}
+
+# Starts the nginx service
+# param reload flag
+startNginx() {
+    if [ -z "$1" ]; then
+        sudo nginx;    
+    else
+        if [ "$1" = 'restart' ] || [ "$1" = 'r' ]; then
+            sudo nginx -s reload;
+        else 
+            echo 'Invalid paramater.';
+        fi
+    fi
+}
+
+# Opens the directory for the given MicroService
+# @param microservice name
+microdir() {
+    local service;
+    
+    if [ -z "$1" ]; then
+        service='';
+    else
+        if [ "$1" = 'part-exchange' ] || [ "$1" = 'partexchange' ] || [ "$1" = 'p' ]; then
+            service='part-exchange';
+        elif [ "$1" = 'part-exchange-admin' ] || [ "$1" = 'partexchangeadmin' ] || [ "$1" = 'pa' ]; then
+            service='part-exchange-admin';
+        else
+            service='';
+        fi          
+    fi
+
+    cd ${GLOBAL_MICROSERVICES}/${service};
 }
 
 # opens the nginx web conf
@@ -172,10 +228,28 @@ checkDeployment() {
 
 # Watch the system log
 watchSystemLog() {
+    if [ ! -d web/var/log ]; then
+        mkdir web/var/log;
+    fi
+
     if [ ! -f web/var/log/system.log ]; then
         touch web/var/log/system.log
     fi
+
     tail -f web/var/log/system.log;
+}
+
+# Watch the exception log
+watchExceptionLog() {
+    if [ ! -d web/var/log ]; then
+        mkdir web/var/log;
+    fi
+
+    if [ ! -f web/var/log/exception.log ]; then
+        touch web/var/log/exception.log
+    fi
+    
+    tail -f web/var/log/exception.log;
 }
 
 # Creates a test php file (with Magento imported)
@@ -187,7 +261,6 @@ testFile() {
     touch web/test.php;
     echo '<?php require_once "app/Mage.php"; Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID); echo "<h4>Test File</h4>";' >> web/test.php;
     echo 'function printPre($thing) {echo "<pre>"; print_r($thing); echo "</pre>";}' >> web/test.php;
-    echo "function findAndReplaceTagStyles(\$string, \$tag, \$replacement) {return preg_replace(\"/<\${tag}( ?(((?!style)\\w)+=\\\"[^\\\"\\\'\\=\\>]*?\\\" ?)*)*(style=\\\"([^\\\"\\\'\\=\\>]*?)\\\")?( ?(((?!style)\\w)+=\\\"[^\\\"\\\'\\=\\>]*?\\\" ?)*)>/\",\"<\${tag} style=\\\"\${replacement}\$5\\\"\$1\$6>\",\$string);}" >> web/test.php;
 
     echo " _____          _       ___ _ _      " &&
     echo "/__   \___  ___| |_    / __(_) | ___ " &&
@@ -239,8 +312,8 @@ project() {
         echo "\/ /_/ \__,_|_|  \__,_|     \/ \_/\___|_| |_|  \___||___/_| |_|" &&
         echo "                                                               ";
 
-        if [ ! -d ${sh}/mage_files ]; then
-            mkdir ${sh}/mage_files
+        if [ ! -d $sh/mage_files ]; then
+            mkdir $sh/mage_files
         fi
 
         local localXml=`date '+%Y-%m-%d-%H-%M-%S'`
